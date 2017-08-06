@@ -6,6 +6,7 @@ var columnWidth = 20;
 var boxes;
 var textInput;
 var notationButton;
+var textMenu;
 
 function setup() {
     canvasContainer = select("#canvascontainer");
@@ -20,6 +21,10 @@ function setup() {
     lexicon = new RiLexicon();
     notationButton = select('#notationButton');
     notationButton.mouseClicked(notate);
+    textMenu = createSelect();
+    textMenu.parent(select('#textSelector'));
+    textMenu.option("Import a piece of writing");
+    textMenu.option("Activated");
 }
 
 function draw() {
@@ -30,7 +35,6 @@ function draw() {
 }
 
 function notate() {
-
     currentPaletteIndex = Math.floor(Math.random() * 4000);
     palette = allPalettes[currentPaletteIndex];
     var s = input.html();
