@@ -1,7 +1,7 @@
 var allPalettes;
 var currentPaletteIndex = Math.floor(Math.random() * 4000);
-
-//Nice palettes : 2061
+// currentPaletteIndex = 2061;
+//Nice palettes : 2061, 810, 3690
 
 
 var palette = ["ECD078", "D95B43", "C02942", "542437", "53777A"];
