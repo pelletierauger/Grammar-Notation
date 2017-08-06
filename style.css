@@ -1,8 +1,13 @@
 body {
     background-color: white;
     padding: 0;
-    margin: 1em;
+    margin: 1em 0;
     font-family: 'Sorts Mill Goudy', 'Baskerville', Georgia, serif;
+}
+
+#document {
+    margin: 0 auto;
+    max-width: 900px;
 }
 
 a {
