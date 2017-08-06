@@ -1,0 +1,76 @@
+body {
+    background-color: white;
+    padding: 0;
+    margin: 1em;
+    font-family: 'Sorts Mill Goudy', 'Baskerville', Georgia, serif;
+}
+
+h1 {
+    font-weight: normal;
+    margin: 0 0 0.5em 0;
+}
+
+#selfdocumenting {
+    margin: 0 0 1em 0;
+}
+
+canvas {
+    margin: 0em;
+}
+
+#canvascontainer {
+    width: 100%;
+    background-color: red;
+}
+
+#input {
+    float: left;
+    /*margin: 1em;*/
+    margin: 0 0 1em 0;
+    padding: 1em;
+    width: 80%;
+    height: 5em;
+    border: 1px solid #BCBCBC;
+
+    overflow: auto;
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Chrome/Safari/Opera */
+    -khtml-user-select: none;
+    /* Konqueror */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+
+    box-sizing: border-box;
+}
+
+#notationButton {
+    /*display: inline-block;*/
+    float: left;
+    width: 19%;
+    font-size: 125%;
+    text-align: center;
+    background: #B6B6B6;
+    margin: 0 0 0 1%;
+    padding: 5px 10px;
+    color: #000000;
+    border: solid 2px #000000;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Chrome/Safari/Opera */
+    -khtml-user-select: none;
+    /* Konqueror */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently not supported by any browser */
+    box-sizing: border-box;
+}

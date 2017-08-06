@@ -1,21 +1,25 @@
-var textField, input;
-var output;
+var canvas, ctx, canvasContainer;
+var input;
 var lexicon;
 var columns = 48;
 var columnWidth = 20;
 var boxes;
+var textInput;
+var notationButton;
 
 function setup() {
+    canvasContainer = select("#canvascontainer");
     loadJSON("palettes.json", gotPalettes);
-    createCanvas(columns * columnWidth, columns * columnWidth);
-    noLoop();
+    // createCanvas((columns + 4) * columnWidth, (columns + 4) * columnWidth);
+    canvas = createCanvas(canvasContainer.width, canvasContainer.width);
+    // columns = width / columnWidth;
     background(255);
+    noLoop();
     noStroke();
-
-    input = select("#input");
-    input.changed(newText);
-    output = select("#output");
+    input = select("#input")
     lexicon = new RiLexicon();
+    notationButton = select('#notationButton');
+    notationButton.mouseClicked(notate);
 }
 
 function draw() {
@@ -25,8 +29,11 @@ function draw() {
     }
 }
 
-function newText() {
-    var s = this.value();
+function notate() {
+
+    currentPaletteIndex = Math.floor(Math.random() * 4000);
+    palette = allPalettes[currentPaletteIndex];
+    var s = input.html();
     console.log("Text has changed :", s);
     var r = /\b[A-z]+\b/g;
 
@@ -67,6 +74,7 @@ function newText() {
     }
     console.log(numberOfChars);
     fillSheet();
+    styleButton();
 }
 
 function fillSheet() {

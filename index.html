@@ -2,39 +2,22 @@
 <html>
 
 <head>
+    <link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy:400,400i" rel="stylesheet">
+    <link href="style.css" rel="stylesheet" type="text/css">
     <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
     <script language="javascript" type="text/javascript" src="libraries/p5.dom.js"></script>
     <script language="javascript" type="text/javascript" src="libraries/rita-full.js"></script>
     <script src="palettes.js"></script>
     <script src="sketch.js"></script>
-    <style>
-    body {
-        background-color: white;
-        padding: 0;
-        margin: 0;
-    }
-    #input {
-        width: 500px;
-        /*height: 150px;*/
-        line-height: 2em;
-        font-size: 1.5em;
-        border: 1px solid #8E8E8E;
-        margin: 1em;
-    }
-
-    #output {
-        font-size: 1.25em;
-    }
-
-    canvas {
-        margin: 0 1em;
-    }
-    </style>
 </head>
 
 <body>
-    <input id="input"></input>
-    <p id="output"></p>
+    <h1>A very simple, mostly useless form of grammar notation</h1>
+    <div id="selfdocumenting">In the simplest case the individual development is parallel to the historical development, recalling the biologists' dictum, ontogeny recapitulates phylogeny. For example, children uniformly represent the physical world in an Aristotelian manner, thinking, for example, that forces act on position rather than on velocities. In other cases, the relation is more complex, indeed to the point of reversal. Intellectual structures that appear first in a child's development are sometimes characteristic not of early science but of the most modern science. So, for example, the mother structure topology appears very early in the child's development, but topology itself appeared as a mathematical subdiscipline only in modern times. Only when mathematics becomes sufficiently advanced is it able to discover its own origins. In the early part of the twentieth century, formal logic was seen as synonymous with the foundation of mathematics. Not until Bourbaki's structuralist theory appeared do we see an internal de- velopment in mathematics that opened the field up to "remembering" its genetic roots. And through the work of genetic epistemology, this "remembering" puts mathematics in the closest possible relationship to the development of research about how children construct their reality.
+    </div>
+    <p contenteditable id="input">Type in whatever you want in there.</p>
+    <div id="notationButton">Make notation</div>
+    <div id="canvascontainer"></div>
 </body>
 
 </html>

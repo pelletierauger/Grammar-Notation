@@ -1,7 +1,7 @@
 var allPalettes;
 var currentPaletteIndex = Math.floor(Math.random() * 4000);
 // currentPaletteIndex = 2061;
-//Nice palettes : 2061, 810, 3690, 3810, 1285, 3117, 2479, 3350, 2387, 692, 2848
+//Nice palettes : 2061, 810, 3690, 3810, 1285, 3117, 2479, 3350, 2387, 692, 2848, 1585
 
 
 var palette = ["ECD078", "D95B43", "C02942", "542437", "53777A"];
@@ -25,6 +25,16 @@ var erase_color_brightness = 1;
 function gotPalettes(palettes) {
     allPalettes = palettes;
     palette = allPalettes[currentPaletteIndex];
+    styleButton();
+}
+
+function styleButton() {
+    var col = hexToRgb(palette[0]);
+    col = color(col.r, col.g, col.b);
+    var colOpp = getOppositeColor(col);
+    notationButton.style("background-color", "#" + palette[0]);
+    notationButton.style("color", colOpp);
+    notationButton.style("border-color", colOpp);
 }
 
 function hexToRgb(hex) {
