@@ -79,3 +79,8 @@ canvas {
     /* Non-prefixed version, currently not supported by any browser */
     box-sizing: border-box;
 }
+
+#textSelector {
+    float: left;
+    margin: 1% 0 0 1%;
+}
