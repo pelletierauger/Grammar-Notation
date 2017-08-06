@@ -34,7 +34,14 @@ function notate() {
     currentPaletteIndex = Math.floor(Math.random() * 4000);
     palette = allPalettes[currentPaletteIndex];
     var s = input.html();
-    console.log("Text has changed :", s);
+    var re = /<div>/gi;
+    s = s.replace(re, "");
+    re = /<\/div>/gi;
+    s = s.replace(re, "");
+    re = /<br>/gi;
+    s = s.replace(re, "");
+
+    // console.log("Text has changed :", s);
     var r = /\b[A-z]+\b/g;
 
     var matches = s.match(r);
