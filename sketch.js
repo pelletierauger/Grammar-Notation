@@ -1,7 +1,7 @@
 var canvas, ctx, canvasContainer;
 var input;
 var lexicon;
-var columns = 48;
+var columns;
 var columnWidth = 20;
 var boxes;
 var textInput;
@@ -12,7 +12,7 @@ function setup() {
     loadJSON("palettes.json", gotPalettes);
     // createCanvas((columns + 4) * columnWidth, (columns + 4) * columnWidth);
     canvas = createCanvas(canvasContainer.width, canvasContainer.width);
-    // columns = width / columnWidth;
+    columns = Math.floor(width / columnWidth);
     background(255);
     noLoop();
     noStroke();
