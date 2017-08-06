@@ -5,6 +5,11 @@ body {
     font-family: 'Sorts Mill Goudy', 'Baskerville', Georgia, serif;
 }
 
+a {
+    text-decoration: none;
+    color: #EE124D;
+}
+
 h1 {
     font-weight: normal;
     margin: 0 0 0.5em 0;
@@ -29,7 +34,7 @@ canvas {
     margin: 0 0 1em 0;
     padding: 1em;
     width: 80%;
-    height: 5em;
+    height: 8em;
     border: 1px solid #BCBCBC;
 
     overflow: auto;
@@ -58,7 +63,7 @@ canvas {
     margin: 0 0 0 1%;
     padding: 5px 10px;
     color: #000000;
-    border: solid 2px #000000;
+    border: solid 1px #000000;
     cursor: pointer;
     -webkit-touch-callout: none;
     /* iOS Safari */
