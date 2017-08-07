@@ -53,10 +53,7 @@ function prepareCanvasSize() {
 function notate() {
     prepareCanvasSize();
     resizeCanvas(canvasContainer.width, rows * columnWidth);
-    // currentPaletteIndex = Math.floor(Math.random() * 4000);
-    // palette = allPalettes[currentPaletteIndex];
     if (firstNotation) {
-        palette = allPalettes[2948];
         firstNotation = false;
     } else {
         shufflePalettes();
@@ -74,14 +71,14 @@ function notate() {
     s = s.replace(re, "");
     re = /[.',\/#!?$%\^&\*;:{}=_`~()]/gi;
     s = s.replace(re, " ");
-    console.log(s);
+    // console.log(s);
 
     var tags = RiTa.getPosTags(s);
-    console.log(tags);
+    // console.log(tags);
 
     var r = /\b[A-z\-]+\b/g;
     var matches = s.match(r);
-    console.log(matches.length);
+    // console.log(matches.length);
 
     var numberOfChars = 0;
     boxes = [];
@@ -106,8 +103,6 @@ function notate() {
             boxes.push([col, matches[i][w]]);
         }
         if (i !== matches.length - 1) {
-
-
             boxes.push([emptyColor, null]);
         }
     }
@@ -153,7 +148,6 @@ function selectColor(POS) {
         case "nnps":
             col = [0];
             break;
-
 
             //Adjectives
         case "jj":
