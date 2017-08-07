@@ -74,17 +74,19 @@ function notate() {
         for (var w = 0; w < wordWidth; w++) {
             boxes.push([col, matches[i][w]]);
         }
-        var ac0 = hexToRgb(palette[0]);
-        var ac1 = hexToRgb(palette[1]);
-        var ac2 = hexToRgb(palette[2]);
-        var ac3 = hexToRgb(palette[3]);
-        var ac4 = hexToRgb(palette[4]);
-        var red = (ac0.r + ac1.r + ac2.r + ac3.r + ac4.r) / 5;
-        var green = (ac0.g + ac1.g + ac2.g + ac3.g + ac4.g) / 5;
-        var blue = (ac0.b + ac1.b + ac2.b + ac3.b + ac4.b) / 5;
-        var emptyColor = color(red, green, blue);
+        if (i !== matches.length - 1) {
+            var ac0 = hexToRgb(palette[0]);
+            var ac1 = hexToRgb(palette[1]);
+            var ac2 = hexToRgb(palette[2]);
+            var ac3 = hexToRgb(palette[3]);
+            var ac4 = hexToRgb(palette[4]);
+            var red = (ac0.r + ac1.r + ac2.r + ac3.r + ac4.r) / 5;
+            var green = (ac0.g + ac1.g + ac2.g + ac3.g + ac4.g) / 5;
+            var blue = (ac0.b + ac1.b + ac2.b + ac3.b + ac4.b) / 5;
+            var emptyColor = color(red, green, blue);
 
-        boxes.push([emptyColor, null]);
+            boxes.push([emptyColor, null]);
+        }
     }
     fillSheet();
     styleButton();
