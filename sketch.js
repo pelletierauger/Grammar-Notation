@@ -1,37 +1,50 @@
-var canvas, ctx, canvasContainer;
+var canvas, canvasContainer;
 var input;
-var lexicon;
-var columns;
+var columns, rows;
+// var rows;
 var columnWidth = 20;
 var boxes;
-var textInput;
 var notationButton;
-var textMenu;
 
 function setup() {
-    canvasContainer = select("#canvascontainer");
     loadJSON("palettes.json", gotPalettes);
-    // createCanvas((columns + 4) * columnWidth, (columns + 4) * columnWidth);
-    canvas = createCanvas(canvasContainer.width, canvasContainer.width);
+    input = select("#input");
+    canvasContainer = select("#canvascontainer");
+
+    var s = input.html();
+    var re = /<div>/gi;
+    s = s.replace(re, "");
+    re = /<\/div>/gi;
+    s = s.replace(re, "");
+    re = /<br>/gi;
+    s = s.replace(re, "");
+    re = /<i>/gi;
+    s = s.replace(re, "");
+    re = /<\/i>/gi;
+    s = s.replace(re, "");
+    re = /<br \/>/gi;
+    s = s.replace(re, "");
+
+    var r = /\b[A-z]+\b/g;
+
+    var matches = s.match(r);
+    var s2 = "";
+    for (var i = 0; i < matches.length; i++) {
+        s2 += matches[i] + " ";
+    }
+    s = s2;
+
+    var widthByAmount = canvasContainer.width / columnWidth;
+    var flooredAmount = Math.floor(widthByAmount);
+    columnWidth = canvasContainer.width / flooredAmount;
+    rows = Math.ceil(s.length /  flooredAmount);
+    canvas = createCanvas(canvasContainer.width, rows * columnWidth);
     columns = Math.floor(width / columnWidth);
     background(255);
     noLoop();
     noStroke();
-    input = select("#input")
-    lexicon = new RiLexicon();
     notationButton = select('#notationButton');
     notationButton.mouseClicked(notate);
-    textMenu = createSelect();
-    textMenu.parent(select('#textSelector'));
-    textMenu.option("Import a piece of writing");
-    textMenu.option("Activated");
-}
-
-function draw() {
-    for (var i = 0; i < columns; i++) {
-        fill(random(255));
-        rect(i * columnWidth, 0, columnWidth, columnWidth);
-    }
 }
 
 function notate() {
@@ -44,12 +57,14 @@ function notate() {
     s = s.replace(re, "");
     re = /<br>/gi;
     s = s.replace(re, "");
+    re = /<i>/gi;
+    s = s.replace(re, "");
+    re = /<\/i> /gi;
+    s = s.replace(re, "");
 
-    // console.log("Text has changed :", s);
     var r = /\b[A-z]+\b/g;
-
     var matches = s.match(r);
-    console.log(matches);
+
     var numberOfChars = 0;
     boxes = [];
     for (var i = 0; i < matches.length; i++) {
@@ -59,8 +74,6 @@ function notate() {
         for (var w = 0; w < wordWidth; w++) {
             boxes.push([col, matches[i][w]]);
         }
-
-        // var emptyColor = hexToRgb(palette[4]);
         var ac0 = hexToRgb(palette[0]);
         var ac1 = hexToRgb(palette[1]);
         var ac2 = hexToRgb(palette[2]);
@@ -72,18 +85,7 @@ function notate() {
         var emptyColor = color(red, green, blue);
 
         boxes.push([emptyColor, null]);
-        // fill(col);
-        // 
-        // var drawerWidth = 0;
-        // for (var j = 0; j < wordWidth; j++) {
-        //     rect(0, 0, columnWidth, columnWidth);
-        //     drawerWidth += columnWidth;
-        //     if (drawerWidth > (columns * columnWidth))
-        // }
-        // numberOfChars += matches[i].length + 1;
-        // console.log(matches[i] + ": " + RiTa.getPosTags(matches[i]));
     }
-    console.log(numberOfChars);
     fillSheet();
     styleButton();
 }
@@ -91,13 +93,13 @@ function notate() {
 function fillSheet() {
     background(255);
     for (var x = 0; x < columns; x++) {
-        for (var y = 0; y < columns; y++) {
+        for (var y = 0; y < rows; y++) {
             var num = x + (y * columns);
             if (boxes[num]) {
                 fill(boxes[num][0]);
                 push();
                 translate(x * columnWidth, y * columnWidth);
-                rect(0, 0, columnWidth, columnWidth);
+                rect(0, 0, columnWidth + 0.5, columnWidth + 0.5);
                 if (boxes[num][1]) {
                     translate(columnWidth / 4, -columnWidth / 4);
                     var opp = getOppositeColor(boxes[num][0]);
@@ -111,7 +113,7 @@ function fillSheet() {
 }
 
 function selectColor(POS) {
-    console.log("POS : " + POS);
+    // console.log("POS : " + POS);
     var col;
     switch (POS[0]) {
         case "nn":
@@ -169,8 +171,6 @@ function selectColor(POS) {
             col = [3, 4];
     }
     col = interpretColor(col);
-    // col = hexToRgb(col);
-    // col = color(col.r, col.g, col.b);
     return col;
 }
 
@@ -220,7 +220,6 @@ function getOppositeColor(col) {
     var finalCol;
     for (var i = 0; i < sums.length; i++) {
         var currentDifference = Math.abs(currentSum - sums[i][0]);
-        // console.log(currentDifference);
         if (currentDifference > difference) {
             difference = currentDifference;
             finalCol = sums[i][1];
