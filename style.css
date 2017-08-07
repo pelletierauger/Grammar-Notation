@@ -7,6 +7,7 @@ body {
 
 #document {
     margin: 0 auto;
+    padding: 1em;
     max-width: 900px;
 }
 
@@ -83,9 +84,4 @@ canvas {
     user-select: none;
     /* Non-prefixed version, currently not supported by any browser */
     box-sizing: border-box;
-}
-
-#textSelector {
-    float: left;
-    margin: 1% 0 0 1%;
 }
