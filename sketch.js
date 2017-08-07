@@ -1,7 +1,6 @@
 var canvas, canvasContainer;
 var input;
 var columns, rows;
-// var rows;
 var columnWidth = 20;
 var boxes;
 var notationButton;
@@ -10,7 +9,17 @@ function setup() {
     loadJSON("palettes.json", gotPalettes);
     input = select("#input");
     canvasContainer = select("#canvascontainer");
+    prepareCanvasSize();
+    canvas = createCanvas(canvasContainer.width, rows * columnWidth);
+    columns = Math.floor(width / columnWidth);
+    background(255);
+    noLoop();
+    noStroke();
+    notationButton = select('#notationButton');
+    notationButton.mouseClicked(notate);
+}
 
+function prepareCanvasSize() {
     var s = input.html();
     var re = /<div>/gi;
     s = s.replace(re, "");
@@ -37,17 +46,20 @@ function setup() {
     var widthByAmount = canvasContainer.width / columnWidth;
     var flooredAmount = Math.floor(widthByAmount);
     columnWidth = canvasContainer.width / flooredAmount;
-    rows = Math.ceil(s.length /  flooredAmount);
-    canvas = createCanvas(canvasContainer.width, rows * columnWidth);
-    columns = Math.floor(width / columnWidth);
-    background(255);
-    noLoop();
-    noStroke();
-    notationButton = select('#notationButton');
-    notationButton.mouseClicked(notate);
+    rows = Math.ceil(s.length / flooredAmount);
+}
+
+function windowResized() {
+    prepareCanvasSize();
+    resizeCanvas(canvasContainer.width, rows * columnWidth);
+    fillSheet();
 }
 
 function notate() {
+    prepareCanvasSize();
+    resizeCanvas(canvasContainer.width, rows * columnWidth);
+
+
     currentPaletteIndex = Math.floor(Math.random() * 4000);
     palette = allPalettes[currentPaletteIndex];
     var s = input.html();
