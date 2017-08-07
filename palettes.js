@@ -3,11 +3,14 @@ var currentPaletteIndex = Math.floor(Math.random() * 4000);
 currentPaletteIndex = 810;
 
 function shufflePalettes() {
-    var nicePalettes = [2061, 810, 3690, 3810, 1285, 3117, 2479, 3350,
-        2387, 692, 2848, 1585, 2220, 1551, 3512, 261, 2207, 939, 3990, 2948, 341, 3789, 3595, 399, 940
+    var nicePalettes = [810, 1285, 3117, 3350, 692, 2848, 2220, 1551,
+        261, 2207, 939, 3990, 2948, 341, 3789, 3595, 399, 940
     ];
-    var choice = Math.floor(Math.random() * nicePalettes.length);
-    currentPaletteIndex = nicePalettes[choice];
+    var choice = currentPaletteIndex;
+    while (choice == currentPaletteIndex) {
+        choice = nicePalettes[Math.floor(Math.random() * nicePalettes.length)];
+    }
+    currentPaletteIndex = choice;
     palette = allPalettes[currentPaletteIndex];
 }
 
@@ -38,10 +41,10 @@ function gotPalettes(palettes) {
 }
 
 function styleButton() {
-    var col = hexToRgb(palette[0]);
+    var col = hexToRgb(palette[3]);
     col = color(col.r, col.g, col.b);
     var colOpp = getOppositeColor(col);
-    notationButton.style("background-color", "#" + palette[0]);
+    notationButton.style("background-color", "#" + palette[3]);
     notationButton.style("color", colOpp);
     notationButton.style("border-color", colOpp);
     input.style("border-color", colOpp);
