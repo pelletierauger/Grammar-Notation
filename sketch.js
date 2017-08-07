@@ -4,6 +4,7 @@ var columns, rows;
 var columnWidth = 20;
 var boxes;
 var notationButton;
+var firstNotation = true;
 
 function setup() {
     loadJSON("palettes.json", gotPalettes);
@@ -49,19 +50,17 @@ function prepareCanvasSize() {
     rows = Math.ceil(s.length / flooredAmount);
 }
 
-function windowResized() {
-    prepareCanvasSize();
-    resizeCanvas(canvasContainer.width, rows * columnWidth);
-    fillSheet();
-}
-
 function notate() {
     prepareCanvasSize();
     resizeCanvas(canvasContainer.width, rows * columnWidth);
-
-
-    currentPaletteIndex = Math.floor(Math.random() * 4000);
-    palette = allPalettes[currentPaletteIndex];
+    // currentPaletteIndex = Math.floor(Math.random() * 4000);
+    // palette = allPalettes[currentPaletteIndex];
+    if (firstNotation) {
+        palette = allPalettes[1285];
+        firstNotation = false;
+    } else {
+        shufflePalettes();
+    }
     var s = input.html();
     var re = /<div>/gi;
     s = s.replace(re, "");

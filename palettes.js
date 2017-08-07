@@ -1,9 +1,15 @@
 var allPalettes;
 var currentPaletteIndex = Math.floor(Math.random() * 4000);
-// currentPaletteIndex = 2061;
-var nicePalettes = [2061, 810, 3690, 3810, 1285, 3117, 2479, 3350,
-    2387, 692, 2848, 1585, 2220, 1551, 3512, 261, 2207, 939, 3990, 2948, 341, 3789, 3595, 399, 940
-];
+currentPaletteIndex = 810;
+
+function shufflePalettes() {
+    var nicePalettes = [2061, 810, 3690, 3810, 1285, 3117, 2479, 3350,
+        2387, 692, 2848, 1585, 2220, 1551, 3512, 261, 2207, 939, 3990, 2948, 341, 3789, 3595, 399, 940
+    ];
+    var choice = Math.floor(Math.random() * nicePalettes.length);
+    currentPaletteIndex = nicePalettes[choice];
+    palette = allPalettes[currentPaletteIndex];
+}
 
 
 var palette = ["ECD078", "D95B43", "C02942", "542437", "53777A"];
