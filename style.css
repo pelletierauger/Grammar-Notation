@@ -1,7 +1,7 @@
 body {
     background-color: white;
     padding: 0;
-    margin: 1em 0;
+    margin: 0 0;
     font-family: 'Sorts Mill Goudy', 'Baskerville', Georgia, serif;
 }
 
@@ -84,4 +84,16 @@ canvas {
     user-select: none;
     /* Non-prefixed version, currently not supported by any browser */
     box-sizing: border-box;
+}
+
+@media screen and (max-width: 700px) {
+    #input {
+        width: 100%;
+
+        height: 12em;
+    }
+    #notationButton {
+        width: 100%;
+        margin: 0 0 1em 0;
+    }
 }
