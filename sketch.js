@@ -59,7 +59,7 @@ function notate() {
     s = s.replace(re, "");
     re = /<i>/gi;
     s = s.replace(re, "");
-    re = /<\/i> /gi;
+    re = /<\/i>/gi;
     s = s.replace(re, "");
 
     var r = /\b[A-z]+\b/g;
