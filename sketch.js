@@ -56,7 +56,7 @@ function notate() {
     // currentPaletteIndex = Math.floor(Math.random() * 4000);
     // palette = allPalettes[currentPaletteIndex];
     if (firstNotation) {
-        palette = allPalettes[1285];
+        palette = allPalettes[2948];
         firstNotation = false;
     } else {
         shufflePalettes();
@@ -72,29 +72,41 @@ function notate() {
     s = s.replace(re, "");
     re = /<\/i>/gi;
     s = s.replace(re, "");
+    re = /[.',\/#!?$%\^&\*;:{}=_`~()]/gi;
+    s = s.replace(re, " ");
+    console.log(s);
 
-    var r = /\b[A-z]+\b/g;
+    var tags = RiTa.getPosTags(s);
+    console.log(tags);
+
+    var r = /\b[A-z\-]+\b/g;
     var matches = s.match(r);
+    console.log(matches.length);
 
     var numberOfChars = 0;
     boxes = [];
-    for (var i = 0; i < matches.length; i++) {
-        var partOfSpeech = RiTa.getPosTags(matches[i]);
+    var ac0 = hexToRgb(palette[0]);
+    var ac1 = hexToRgb(palette[1]);
+    var ac2 = hexToRgb(palette[2]);
+    var ac3 = hexToRgb(palette[3]);
+    var ac4 = hexToRgb(palette[4]);
+    var red = (ac0.r + ac1.r + ac2.r + ac3.r + ac4.r) / 5;
+    var green = (ac0.g + ac1.g + ac2.g + ac3.g + ac4.g) / 5;
+    var blue = (ac0.b + ac1.b + ac2.b + ac3.b + ac4.b) / 5;
+    var emptyColor = color(red, green, blue);
+
+    for (var i = 0; i < tags.length; i++) {
+        var partOfSpeech = tags[i];
         var col = selectColor(partOfSpeech);
+        if (col == null) {
+            col = emptyColor;
+        }
         var wordWidth = matches[i].length;
         for (var w = 0; w < wordWidth; w++) {
             boxes.push([col, matches[i][w]]);
         }
         if (i !== matches.length - 1) {
-            var ac0 = hexToRgb(palette[0]);
-            var ac1 = hexToRgb(palette[1]);
-            var ac2 = hexToRgb(palette[2]);
-            var ac3 = hexToRgb(palette[3]);
-            var ac4 = hexToRgb(palette[4]);
-            var red = (ac0.r + ac1.r + ac2.r + ac3.r + ac4.r) / 5;
-            var green = (ac0.g + ac1.g + ac2.g + ac3.g + ac4.g) / 5;
-            var blue = (ac0.b + ac1.b + ac2.b + ac3.b + ac4.b) / 5;
-            var emptyColor = color(red, green, blue);
+
 
             boxes.push([emptyColor, null]);
         }
@@ -128,25 +140,22 @@ function fillSheet() {
 function selectColor(POS) {
     // console.log("POS : " + POS);
     var col;
-    switch (POS[0]) {
+    switch (POS) {
         case "nn":
             col = [0];
             break;
         case "nns":
             col = [0];
             break;
-        case "dt":
-            col = [0, 1];
-            break;
-        case "prp":
-            col = [0, 2];
-            break;
-        case "prp$":
-            col = [0, 2];
-            break;
         case "nnp":
-            col = [0, 4];
+            col = [0];
             break;
+        case "nnps":
+            col = [0];
+            break;
+
+
+            //Adjectives
         case "jj":
             col = [1];
             break;
@@ -157,33 +166,92 @@ function selectColor(POS) {
             col = [1];
             break;
 
-        case "rb":
-            col = [4];
+
+        case "dt":
+            col = [2];
+            break;
+        case "prp":
+            col = [2, 0];
+            break;
+        case "prp$":
+            col = [2, 0];
             break;
 
+            //???
+        case "in":
+            col = [4, 2];
+            break;
+        case "ex":
+            col = [4, 2];
+            break;
+        case "cc":
+            col = [4, 2];
+            break;
+        case "to":
+            col = [4, 2];
+            break;
+        case "wp":
+            col = [4, 2];
+            break;
+        case "wrb":
+            col = [4, 2];
+            break;
+
+
+            //Digit?
+            // case "d":
+            //     col = [0, 4];
+            //     break;
+        case "cd":
+            col = [0, 4];
+            break;
+
+
+
+            //Verbs
         case "vb":
             col = [3];
             break;
-        case "vbg":
-            col = [3, 0];
-            break;
         case "vbd":
-            col = [3, 1];
+            col = [3];
             break;
-        case "vbp":
-            col = [3, 2];
-            break;
-        case "vbz":
-            col = [3, 4];
+        case "vbg":
+            col = [3];
             break;
         case "vbn":
-            col = [2, 4];
+            col = [3];
+            break;
+        case "vbp":
+            col = [3];
+            break;
+        case "vbz":
+            col = [3];
+            break;
+        case "md":
+            col = [3];
             break;
 
+            //Adverbs
+        case "rb":
+            col = [4];
+            break;
+        case "rbr":
+            col = [4];
+            break;
+        case "rbs":
+            col = [4];
+            break;
+        case "rp":
+            col = [4];
+            break;
+
+
         default:
-            col = [3, 4];
+            col = null;
     }
-    col = interpretColor(col);
+    if (col !== null) {
+        col = interpretColor(col);
+    }
     return col;
 }
 
