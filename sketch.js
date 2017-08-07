@@ -136,17 +136,22 @@ function selectColor(POS) {
     // console.log("POS : " + POS);
     var col;
     switch (POS) {
+        // Noun, singular or mass
         case "nn":
             col = [0];
             break;
+            // Noun, plural
         case "nns":
             col = [0];
             break;
+
+            // Proper noun, singular
         case "nnp":
-            col = [0];
+            col = [0, 1];
             break;
+            // Proper noun, plural
         case "nnps":
-            col = [0];
+            col = [0, 1];
             break;
 
             //Adjectives
@@ -160,47 +165,66 @@ function selectColor(POS) {
             col = [1];
             break;
 
-
+            //Determiner
         case "dt":
             col = [2];
             break;
+            //Predeterminer
+        case "pdt":
+            col = [2];
+            break;
+            //Wh-determiner
+        case "wdt":
+            col = [2];
+            break;
+
+            //Pronouns
         case "prp":
             col = [2, 0];
             break;
         case "prp$":
             col = [2, 0];
             break;
+            //wh-pronoun
+        case "wp":
+            col = [2, 0];
+            break;
+            //Possessive wh-pronoun
+        case "wp$":
+            col = [2, 0];
+            break;
+            //Possessive ending
+        case "pos":
+            col = [2, 1];
+            break;
 
-            //???
+            //  Preposition or subordinating conjunction
         case "in":
             col = [4, 2];
             break;
+
+            //Existential there
         case "ex":
             col = [4, 2];
             break;
+
+            //Coordinating conjunction
         case "cc":
-            col = [4, 2];
+            col = [4, 3];
             break;
         case "to":
             col = [4, 2];
             break;
-        case "wp":
-            col = [4, 2];
-            break;
-        case "wrb":
-            col = [4, 2];
+
+            //Interjection
+        case "uh":
+            col = [4, 1];
             break;
 
-
-            //Digit?
-            // case "d":
-            //     col = [0, 4];
-            //     break;
+            //Cardinal number
         case "cd":
             col = [0, 4];
             break;
-
-
 
             //Verbs
         case "vb":
@@ -221,8 +245,10 @@ function selectColor(POS) {
         case "vbz":
             col = [3];
             break;
+
+            //Modal
         case "md":
-            col = [3];
+            col = [3, 1];
             break;
 
             //Adverbs
@@ -235,10 +261,15 @@ function selectColor(POS) {
         case "rbs":
             col = [4];
             break;
-        case "rp":
+            //Who adverb
+        case "wrb":
             col = [4];
             break;
 
+            //Particle
+        case "rp":
+            col = [3, 0];
+            break;
 
         default:
             col = null;
