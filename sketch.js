@@ -47,7 +47,7 @@ function prepareCanvasSize() {
     var widthByAmount = canvasContainer.width / columnWidth;
     var flooredAmount = Math.floor(widthByAmount);
     columnWidth = canvasContainer.width / flooredAmount;
-    rows = Math.ceil(s.length / flooredAmount);
+    rows = Math.ceil(s.length / flooredAmount) + 1;
 }
 
 function notate() {
