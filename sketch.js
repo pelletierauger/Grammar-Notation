@@ -167,7 +167,7 @@ function fillSheet() {
                 fill(boxes[num][0]);
                 push();
                 translate(x * columnWidth, y * columnWidth);
-                rect(0, 0, columnWidth + 0.5, columnWidth + 0.75);
+                rect(0, 0, columnWidth + 0.5, columnWidth + 0.5);
                 if (boxes[num][1]) {
                     translate(columnWidth / 4, -columnWidth / 4);
                     var opp = getOppositeColor(boxes[num][0]);
