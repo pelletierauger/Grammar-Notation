@@ -50,6 +50,12 @@ function prepareCanvasSize() {
     rows = Math.ceil(s.length / flooredAmount) + 1;
 }
 
+function strip(html) {
+    var tmp = document.createElement("DIV");
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || "";
+}
+
 function notate() {
     prepareCanvasSize();
     resizeCanvas(canvasContainer.width, rows * columnWidth);
@@ -59,11 +65,16 @@ function notate() {
         shufflePalettes();
     }
     var s = input.html();
+
+    // console.log(s);
+    s = s.replace(/\n/gi, " ");
+    s = s.replace(/<br>/gi, " ");
+    s = s.replace(/<br \/>/gi, " ");
+    s = s.replace(/<br\/>/gi, " ");
+    s = strip(s);
     var re = /<div>/gi;
     s = s.replace(re, "");
     re = /<\/div>/gi;
-    s = s.replace(re, "");
-    re = /<br>/gi;
     s = s.replace(re, "");
     re = /<i>/gi;
     s = s.replace(re, "");
