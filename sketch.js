@@ -8,7 +8,12 @@ var firstNotation = true;
 
 function setup() {
     loadJSON("palettes.json", gotPalettes);
+    loadStrings("we-know-this-place.txt", gotText);
     input = select("#input");
+    // var s = input.value();
+    // s = convertHtmlToText(s);
+    // input.value(s);
+    // console.log(input.value());
     canvasContainer = select("#canvascontainer");
     prepareCanvasSize();
     canvas = createCanvas(canvasContainer.width, rows * columnWidth);
@@ -20,8 +25,28 @@ function setup() {
     notationButton.mouseClicked(notate);
 }
 
+function gotText(t) {
+    // console.log(t);
+    var text = "";
+    for (var i = 0; i < t.length; i++) {
+        if (t[i] == "!!!") {
+            text += "\n";
+        } else {
+            if (i == t.length - 1) {
+                text += t[i];
+            } else {
+                text += t[i] + "\n";
+            }
+        }
+    }
+    // console.log(t);
+    input.value(text);
+}
+
+
 function prepareCanvasSize() {
-    var s = input.html();
+    var s = input.value();
+    // console.log(s);
     var re = /<div>/gi;
     s = s.replace(re, "");
     re = /<\/div>/gi;
@@ -34,7 +59,6 @@ function prepareCanvasSize() {
     s = s.replace(re, "");
     re = /<br \/>/gi;
     s = s.replace(re, "");
-
     var r = /\b[A-z]+\b/g;
 
     var matches = s.match(r);
@@ -59,11 +83,22 @@ function stripHtml(html) {
 function convertHtmlToText(inputText) {
     var returnText = "" + inputText;
 
+    // returnText = returnText.replace(/\n/gi, " ");
+    // returnText = returnText.replace(/’/gi, " ");
+    // returnText = returnText.replace(/'/gi, " ");
+    // returnText = returnText.replace(/—/gi, " ");
+
+    // returnText = returnText.replace(/\'/gi, " ");
+    // returnText = returnText.replace(/’/gi, " ");
+    returnText = returnText.replace(/<br>/gi, "");
+    returnText = returnText.replace(/<br \/>/gi, "");
+    returnText = returnText.replace(/<br\/>/gi, "");
+
     //-- remove BR tags and replace them with line break
-    returnText = returnText.replace(/<br>/gi, " ");
-    returnText = returnText.replace(/<br\s\/>/gi, " ");
-    returnText = returnText.replace(/<br*>/gi, " ");
-    returnText = returnText.replace(/<br\/>/gi, " ");
+    returnText = returnText.replace(/<br>/gi, "");
+    returnText = returnText.replace(/<br\s\/>/gi, "");
+    returnText = returnText.replace(/<br*>/gi, "");
+    returnText = returnText.replace(/<br\/>/gi, "");
 
     //-- remove P and A tags but preserve what's inside of them
     returnText = returnText.replace(/<p.*>/gi, "\n");
@@ -100,14 +135,11 @@ function notate() {
     } else {
         shufflePalettes();
     }
-    var s = input.html();
+    var s = input.value();
+
+    s = convertHtmlToText(s);
 
     // console.log(s);
-    s = s.replace(/\n/gi, " ");
-    s = s.replace(/<br>/gi, " ");
-    s = s.replace(/<br \/>/gi, " ");
-    s = s.replace(/<br\/>/gi, " ");
-    s = convertHtmlToText(s);
 
     var re = /<div>/gi;
     s = s.replace(re, "");
@@ -122,11 +154,15 @@ function notate() {
     // console.log(s);
 
     var tags = RiTa.getPosTags(s);
-    // console.log(tags);
+    var tagsInline = RiTa.getPosTagsInline(s);
+    var r = /\b[A-z\-]+\b/g;
+    var matchesInline = tagsInline.match(r);
 
+    // console.log(tags.length);
     var r = /\b[A-z\-]+\b/g;
     var matches = s.match(r);
     // console.log(matches.length);
+    // console.log(matches);
 
     var numberOfChars = 0;
     boxes = [];
@@ -341,14 +377,6 @@ function interpretColor(col) {
         pal = color((color1.r + color2.r) / 2, (color1.g + color2.g) / 2, (color1.b + color2.b) / 2);
     }
     return pal;
-}
-
-function keyPressed() {
-    if (key == 'p' || key == 'P') {
-        currentPaletteIndex = Math.floor(Math.random() * 4000);
-        newText();
-        fillSheet();
-    }
 }
 
 function getOppositeColor(col) {

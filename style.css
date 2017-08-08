@@ -34,28 +34,17 @@ canvas {
     background-color: red;
 }
 
-#input {
+textarea#input {
     float: left;
-    /*margin: 1em;*/
     margin: 0 0 1em 0;
     padding: 1em;
     width: 80%;
     height: 8em;
+    resize: none;
     border: 1px solid #BCBCBC;
-
+    font-family: 'Sorts Mill Goudy', 'Baskerville', Georgia, serif;
+    font-size: 1em;
     overflow: auto;
-    -webkit-touch-callout: none;
-    /* iOS Safari */
-    -webkit-user-select: none;
-    /* Chrome/Safari/Opera */
-    -khtml-user-select: none;
-    /* Konqueror */
-    -moz-user-select: none;
-    /* Firefox */
-    -ms-user-select: none;
-    /* Internet Explorer/Edge */
-    user-select: none;
-
     box-sizing: border-box;
 }
 
@@ -87,7 +76,7 @@ canvas {
 }
 
 @media screen and (max-width: 700px) {
-    #input {
+    textarea#input {
         width: 100%;
 
         height: 12em;
